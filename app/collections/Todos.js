@@ -13,6 +13,35 @@ module.exports = TodosCollection = (function(_super) {
 
   TodosCollection.prototype.model = require('models/Todo');
 
+  TodosCollection.prototype.initialize = function() {};
+
   return TodosCollection;
 
 })(Backbone.Collection);
+
+this.localStorage = new Store('todos');
+
+({
+  done: function() {
+    return this.filter(function(todo) {
+      return todo.get('done');
+    });
+  },
+  remaining: function() {
+    return this.without.apply(this, this.done());
+  },
+  nextOrder: function() {
+    if (!this.length) {
+      return 1;
+    }
+    return this.last().get('order') + 1;
+  },
+  comparator: function(todo) {
+    return todo.get('order');
+  },
+  clearCompleted: function() {
+    return _.each(this.done(), function(todo) {
+      return todo.clear();
+    });
+  }
+});

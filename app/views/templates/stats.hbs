@@ -1,1 +1,18 @@
-<!-- .stats -->
+{{#if stats.total}}
+  <span class="todo-count">
+    باقي
+    <span class="number">{{stats.remaining}}</span>
+    <span class="word">
+       {{stats.remaining}} 
+    </span>
+    
+  </span>
+{{/if}}
+
+{{#if stats.done}}
+  <a class="todo-clear topcoat-notification">
+    Clear <span class="number-done">{{stats.done}}</span> completed
+    <span class="word-done">
+      {{stats.done}}items
+    </span>
+  </span>{{/if}}
